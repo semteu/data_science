@@ -34,6 +34,8 @@ train_data <- get_data('train')
 test_data <- get_data('test')
 data <- rbind(train_data, test_data)
 features = get_table('features.txt')
+
+#4) Appropriately labels the data set with descriptive variable names. 
 names(data) <- c('subject_id','activities',features[,2])
 
 #2) Extracts only the measurements on the mean and standard deviation for each measurement. 
@@ -44,14 +46,8 @@ mean_std_data <- data[,c(1,2,mean_std_indices+2)]
 activity <- get_table('activity_labels.txt')
 labelled_data <- mean_std_data
 labelled_data[,2] <- activity[labelled_data[, 2], 2]
-#labels <- mean_std_data[, 2]
-#for (i in 1: length(lebels)){
-#	labels[[i]] <- activity[[c(2,i)]]
-#}
-#labelled_data[, 2] <- labels
 
-#4) Appropriately labels the data set with descriptive variable names. 
-write.table(labelled_data, paste(resultsfolder,"merged_data.txt",sep='/'))
+#write.table(labelled_data, paste(resultsfolder,"merged_data.txt",sep='/'))
 
 #5) Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
@@ -74,4 +70,4 @@ for(i in 1:subject_len) {
     }
 }
 head(result)
-write.table(result, paste(resultsfolder,"data_with_means.txt",sep='/'))
+write.table(result, paste(resultsfolder,"data_with_means.txt",sep='/'),row.name=FALSE)
